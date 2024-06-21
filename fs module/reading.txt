@@ -1,0 +1,1 @@
+My name is hariom kumar. How are you this text can be added through appendFileSync method expect the other above 2 line
