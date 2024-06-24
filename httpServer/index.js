@@ -8,6 +8,7 @@
 // Server error responses (500 – 599)
 
 const http=require('http');
+const fs=require('fs');
 const { type } = require('os');
 const server=http.createServer((req, res)=>{
     // console.log(req.url);
@@ -19,6 +20,13 @@ const server=http.createServer((req, res)=>{
     }
     else if(req.url=="/about"){
         res.end("response from the about");
+    }
+    else if(req.url=="/userAPI"){
+        fs.readFile(`${__dirname}/userApi/userApi.json`,"utf-8",(err, data)=>{
+            console.log(data);
+            res.end(data);
+        });
+        
     }
     else{
         res.writeHead(404,{"content-type":"text/html"});
