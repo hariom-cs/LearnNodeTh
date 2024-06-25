@@ -11,6 +11,10 @@ const http=require('http');
 const fs=require('fs');
 const { type } = require('os');
 const server=http.createServer((req, res)=>{
+
+    const data=fs.readFileSync(`${__dirname}/userApi/userApi.json`,"utf-8");
+    const objdata = JSON.parse(data);
+
     // console.log(req.url);
     if (req.url=="/") {
         res.end("Hello form the home side");
@@ -22,15 +26,12 @@ const server=http.createServer((req, res)=>{
         res.end("response from the about");
     }
     else if(req.url=="/userAPI"){
-        fs.readFile(`${__dirname}/userApi/userApi.json`,"utf-8",(err, data)=>{
-            console.log(data);
-            res.end(data);
-        });
-        
+        res.writeHead(200,{"content-type":"application/json"})//"content-type":"application/json" b/q we have to show which  type of data we are using.
+        res.end(objdata[2].name);        
     }
     else{
-        res.writeHead(404,{"content-type":"text/html"});
-        res.end("<h1>Error 404: Page Not Found</h1>")
+        res.writeHead(404,{"content-type":"text/html"});//bq data is type of HTML
+        res.end("<h1>Error 404: Page Not Found</h1>");
     }
     // res.end('Hello from the other sides');
 });
