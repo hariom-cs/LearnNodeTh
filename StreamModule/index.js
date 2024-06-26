@@ -4,11 +4,11 @@ const http = require("http");
 const server = http.createServer();
 
 server.on("request",(req, res)=>{
-    //1st Way- this is not at all effective bq we download all the data and load to server
-    fs.readFile("input.txt", (err, data)=>{
-        if (err) return console.error(err);
-        res.end(data.toString());
-    });
+    // //1st Way- this is not at all effective bq we download all the data and load to server
+    // fs.readFile("input.txt", (err, data)=>{
+    //     if (err) return console.error(err);
+    //     res.end(data.toString());
+    // });
 
 
 
@@ -25,6 +25,11 @@ server.on("request",(req, res)=>{
     //     console.log(err);
     //     res.end ("file not find");
     // });
+
+
+    // 3rd  way
+    const rstream = fs.createReadStream("input.txt");
+    rstream.pipe(res);
 });
 
 //to start server
